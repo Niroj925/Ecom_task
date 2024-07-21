@@ -1,0 +1,30 @@
+@use "../../abstracts" as *;
+
+.navContainer{
+    padding: 15px;
+    background-color:$BgColor;
+    color:$TextColor;
+    @include flex(space-between,center, 0, row);
+    position: sticky;
+    position: -webkit-sticky;
+    top: -5px;
+
+    div>h3{
+        cursor: pointer;
+    }
+
+    div>h3:hover{
+        color: #d8f1f3
+    }
+}
+
+.navLeft{
+    @include flex(space-between,center, 15px, row);
+    div>p{
+            cursor: pointer;
+            
+        } 
+        div>p:hover{
+            color: #d8f1f3
+        }
+}

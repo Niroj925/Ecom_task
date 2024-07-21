@@ -1,0 +1,62 @@
+@use "../../abstracts" as *;
+
+.mainContainer{
+    background-color: #fff;
+}
+.itemContainer{
+  @include flex(center,center, 20px, column);
+ width: 100%;
+}
+
+.itemList{
+  @include flex(null,center, 10px, column);
+  border-radius: 5px; 
+  box-shadow: 0 0 3px black; 
+  padding: 20px;
+  max-height:300px;
+  min-height: 300px;
+  min-width: 280px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.itemCard{
+  border-radius: 3px;
+  box-shadow: 0 0 3px black; 
+  padding: 15px;
+  width: 90%;
+}
+
+.cardbtm{
+  @include flex(spac-between,center, 20px, row);
+}
+
+.addItemBox{
+  @include flex(center,center, 5px, column);
+}
+.dialogueBox{
+  @include flex(center,center, 5px, column);
+}
+
+.dialog-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #555;
+}

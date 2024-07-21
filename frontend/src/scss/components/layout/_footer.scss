@@ -1,0 +1,51 @@
+@use "../../abstracts" as *;
+
+.footerContainer{
+    width: 100%;
+    background-color: #161B2C;
+    padding-bottom: 50px;
+    padding-top: 50px;
+    @include flex(space-around, center, 35px, row);
+    color: $TextColor;
+}
+.footerIntro{
+    width: 40%;
+    h1{
+        margin-bottom: 10px;
+        color: $BaseColor;
+    }
+}
+
+.contactLink{
+    width: 40%;
+    @include flex(space-around, start, 15px, row);
+   h3{
+    color: $BaseColor
+   }
+}
+
+.footerLink{
+    @include flex(center, start, 5px, column);
+    a{
+        color: $TextColor;
+        text-decoration: none;
+        &:hover{
+            color: $BaseColor;
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+  .footerContainer{
+    @include flex(center, center, 25px, column);
+  }
+  .footerIntro{
+    width: 85%;
+  }
+
+  .contactLink{
+    width: 85%;
+    @include flex(space-around, start, 25px, row);
+  }
+
+}
+
