@@ -46,14 +46,18 @@ export class PackageService {
   async findAll(package_status:packageStatus) {
     const packages=await this.packageRepository.find({
       where:{status:package_status},
-      relations:['customer'],
+      relations:['customer','items'],
       select:{
         id:true,
         price:true,
         courierPrice:true,
         weight:true,
-        customerEmail:true
-        // customer:{email:true}
+        status:true,
+        customer:{email:true},
+        items:{
+          id:true,
+          name:true
+        }
       }
     })
     return packages;

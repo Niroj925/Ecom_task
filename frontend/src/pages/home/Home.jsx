@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import api from "../../api";
-import { Item ,customer,packages,allPackage,packagByStatus} from "../../api/endpoint";
+import { Item ,customer,packages,packagByStatus} from "../../api/endpoint";
 import AppContext from "../../context/context";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+
 function Home() {
-  const { addItemOpen, orderOpen,itemOpen,setItemOpen } = useContext(AppContext);
+  const { addItemOpen, orderOpen,itemOpen,setItemOpen ,allPackage} = useContext(AppContext);
   const [selectedItem, setSelectedItem] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [addedItem,setAddedItem]=useState(null);
   const [customerId,setCustomerId]=useState(null);
+  const [items,setItems]=useState(null);
+  const [search,setSearch]=useState('');
   const queryClient = useQueryClient();
   const [item, setItem] = useState({
     name: "",
@@ -108,6 +111,22 @@ function Home() {
     }
   });
 
+    const searchByName = (array, search) => {
+    const lowercaseQuery = search.toLowerCase();
+    return array.filter(
+      (item) => item.name.toLowerCase().includes(lowercaseQuery)
+    );
+  };
+
+  useEffect(() => {
+    if (search.length > 0) {
+      const filtered = searchByName(data, search);
+      setItems(filtered);
+    } else {
+      setItems(data);
+    }
+  }, [data, search]);
+
   if (isLoading) {
     return (
       <div>
@@ -177,10 +196,10 @@ function Home() {
       {!addItemOpen && !orderOpen && itemOpen && (
         <div className="itemContainer">
           <h3>Buy Now</h3>
-          <input></input>
+          <input value={search} name='search' onChange={(e)=>setSearch(e.target.value)} placeholder="search..."/>
           <div className="itemList">
-            {data.length > 0 ? (
-              data.map((item) => {
+            {items && items.length > 0 ? (
+              items.map((item) => {
                 return (
                   <div className="itemCard" key={item.id}>
                     <div className="cardtop">
@@ -306,7 +325,49 @@ function Home() {
           </dialog>
         </div>
       )}
-      {orderOpen && <p>Orders</p>}
+      {orderOpen &&(
+           <div className="itemContainer">
+           <h3>All Packages</h3>
+           {/* <input></input> */}
+           <div className="itemList">
+             {allPackage.length > 0 ? (
+               allPackage.map((pkg) => {
+                 return (
+                   <div className="itemCard" key={item.id}>
+                     <div className="cardtop">
+                       <h4>{item.name}</h4>
+                     </div>
+                     <div className="cardbtm">
+                       <div>
+                        <p>Items:
+                          {
+                            pkg.items.map((item)=>{
+                              return(
+                               <>
+                               {item.name},
+                               </>
+                              )
+                            })
+                          }
+                        </p>
+                         <p>Weight:{pkg.weight}</p>
+                         <p>Price:{pkg.price}</p>
+                         <p>CourierPrice:{pkg.courierPrice}</p>
+                         <p>customer:{pkg.customer.email}</p>
+                         <p>status:{pkg.status}</p>
+                       </div>
+                     </div>
+                   </div>
+                 );
+               })
+             ) : (
+               <div>
+                 <h3>No Package Found</h3>
+               </div>
+             )}
+           </div>
+         </div>
+      )}
     </div>
   );
 }

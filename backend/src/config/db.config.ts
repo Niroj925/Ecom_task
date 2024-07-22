@@ -10,7 +10,7 @@ require('dotenv').config();
 
 const PORT=parseInt(MYSQL_PORT);
 const databaseConfig: TypeOrmModuleOptions = {
-    type: 'postgres',
+    type: 'mysql',
     host: MYSQL_HOST,
     port: PORT,
     username: MYSQL_USER,

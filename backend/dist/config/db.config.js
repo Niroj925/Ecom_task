@@ -4,7 +4,7 @@ require('dotenv').config();
 const { MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB, MYSQL_PORT } = process.env;
 const PORT = parseInt(MYSQL_PORT);
 const databaseConfig = {
-    type: 'postgres',
+    type: 'mysql',
     host: MYSQL_HOST,
     port: PORT,
     username: MYSQL_USER,
