@@ -138,7 +138,7 @@ function Home() {
   if (isError) {
     return (
       <div>
-        <h2>Error ocuure :{error.message}</h2>
+        <h2>Error occure :{error.message}</h2>
       </div>
     );
   }
